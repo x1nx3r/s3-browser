@@ -3,37 +3,39 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Editor, { DiffEditor, loader } from "@monaco-editor/react";
 
-// Define custom terminal-green theme
-loader.init().then((monaco) => {
-  monaco.editor.defineTheme("terminal-green", {
-    base: "vs-dark",
-    inherit: true,
-    rules: [
-      { token: "", foreground: "4ade80" },
-      { token: "comment", foreground: "166534", fontStyle: "italic" },
-      { token: "keyword", foreground: "22d3ee" },
-      { token: "string", foreground: "facc15" },
-      { token: "number", foreground: "60a5fa" },
-      { token: "operator", foreground: "4ade80" },
-      { token: "delimiter", foreground: "4ade80" },
-      { token: "type", foreground: "22d3ee" },
-    ],
-    colors: {
-      "editor.background": "#000000",
-      "editor.foreground": "#4ade80",
-      "editor.lineHighlightBackground": "#052e16",
-      "editor.selectionBackground": "#166534",
-      "editorCursor.foreground": "#4ade80",
-      "editorLineNumber.foreground": "#166534",
-      "editorLineNumber.activeForeground": "#4ade80",
-      "minimap.background": "#000000",
-      "scrollbarSlider.background": "#16653480",
-      "scrollbarSlider.hoverBackground": "#4ade8050",
-      "diffEditor.insertedTextBackground": "#16653450",
-      "diffEditor.removedTextBackground": "#7f1d1d50",
-    },
+// Define custom terminal-green theme (only on client side)
+if (typeof window !== "undefined") {
+  loader.init().then((monaco) => {
+    monaco.editor.defineTheme("terminal-green", {
+      base: "vs-dark",
+      inherit: true,
+      rules: [
+        { token: "", foreground: "4ade80" },
+        { token: "comment", foreground: "166534", fontStyle: "italic" },
+        { token: "keyword", foreground: "22d3ee" },
+        { token: "string", foreground: "facc15" },
+        { token: "number", foreground: "60a5fa" },
+        { token: "operator", foreground: "4ade80" },
+        { token: "delimiter", foreground: "4ade80" },
+        { token: "type", foreground: "22d3ee" },
+      ],
+      colors: {
+        "editor.background": "#000000",
+        "editor.foreground": "#4ade80",
+        "editor.lineHighlightBackground": "#052e16",
+        "editor.selectionBackground": "#166534",
+        "editorCursor.foreground": "#4ade80",
+        "editorLineNumber.foreground": "#166534",
+        "editorLineNumber.activeForeground": "#4ade80",
+        "minimap.background": "#000000",
+        "scrollbarSlider.background": "#16653480",
+        "scrollbarSlider.hoverBackground": "#4ade8050",
+        "diffEditor.insertedTextBackground": "#16653450",
+        "diffEditor.removedTextBackground": "#7f1d1d50",
+      },
+    });
   });
-});
+}
 
 interface S3Object {
   key: string;
