@@ -3,33 +3,33 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Editor, { DiffEditor, loader } from "@monaco-editor/react";
 
-// Define custom terminal-green theme (only on client side)
+// Define custom terminal-blue theme (only on client side)
 if (typeof window !== "undefined") {
   loader.init().then((monaco) => {
-    monaco.editor.defineTheme("terminal-green", {
+    monaco.editor.defineTheme("terminal-blue", {
       base: "vs-dark",
       inherit: true,
       rules: [
-        { token: "", foreground: "4ade80" },
-        { token: "comment", foreground: "166534", fontStyle: "italic" },
-        { token: "keyword", foreground: "22d3ee" },
+        { token: "", foreground: "60a5fa" },
+        { token: "comment", foreground: "1e3a5f", fontStyle: "italic" },
+        { token: "keyword", foreground: "c084fc" },
         { token: "string", foreground: "facc15" },
-        { token: "number", foreground: "60a5fa" },
-        { token: "operator", foreground: "4ade80" },
-        { token: "delimiter", foreground: "4ade80" },
-        { token: "type", foreground: "22d3ee" },
+        { token: "number", foreground: "4ade80" },
+        { token: "operator", foreground: "60a5fa" },
+        { token: "delimiter", foreground: "60a5fa" },
+        { token: "type", foreground: "c084fc" },
       ],
       colors: {
         "editor.background": "#000000",
-        "editor.foreground": "#4ade80",
-        "editor.lineHighlightBackground": "#052e16",
-        "editor.selectionBackground": "#166534",
-        "editorCursor.foreground": "#4ade80",
-        "editorLineNumber.foreground": "#166534",
-        "editorLineNumber.activeForeground": "#4ade80",
+        "editor.foreground": "#60a5fa",
+        "editor.lineHighlightBackground": "#0c1929",
+        "editor.selectionBackground": "#1e3a5f",
+        "editorCursor.foreground": "#60a5fa",
+        "editorLineNumber.foreground": "#1e3a5f",
+        "editorLineNumber.activeForeground": "#60a5fa",
         "minimap.background": "#000000",
-        "scrollbarSlider.background": "#16653480",
-        "scrollbarSlider.hoverBackground": "#4ade8050",
+        "scrollbarSlider.background": "#1e3a5f80",
+        "scrollbarSlider.hoverBackground": "#60a5fa50",
         "diffEditor.insertedTextBackground": "#16653450",
         "diffEditor.removedTextBackground": "#7f1d1d50",
       },
@@ -259,20 +259,20 @@ export default function Home() {
   const panelWidth = viewMode === "browse" ? "w-full" : "w-1/3";
 
   return (
-    <div className="h-screen bg-black text-green-400 font-mono flex">
+    <div className="h-screen bg-black text-blue-400 font-mono flex">
       {/* File Browser Panel */}
-      <div className={`${panelWidth} flex flex-col border-r border-green-600 transition-all`}>
-        <div className="border-b border-green-600 p-3 shrink-0">
-          <div className="text-green-300">KMP Backup Browser</div>
-          <div className="text-green-600 text-sm">
+      <div className={`${panelWidth} flex flex-col border-r border-blue-600 transition-all`}>
+        <div className="border-b border-blue-600 p-3 shrink-0">
+          <div className="text-blue-300">KMP Backup Browser</div>
+          <div className="text-blue-600 text-sm">
             /{currentPath || "(root)"}
           </div>
         </div>
 
         {/* Compare toolbar */}
         {content && content.files.length > 0 && (
-          <div className="border-b border-green-600 p-2 flex items-center gap-2 text-xs shrink-0">
-            <span className="text-green-600">
+          <div className="border-b border-blue-600 p-2 flex items-center gap-2 text-xs shrink-0">
+            <span className="text-blue-600">
               Compare: {compareFiles.length}/2 selected
             </span>
             {compareFiles.length === 2 && (
@@ -296,13 +296,13 @@ export default function Home() {
 
         <div className="flex-1 overflow-auto">
           {loading ? (
-            <div className="p-3 text-green-500">Loading...</div>
+            <div className="p-3 text-blue-500">Loading...</div>
           ) : error ? (
             <div className="p-3">
               <span className="text-red-400">{error}</span>
               <button
                 onClick={() => fetchContent(currentPath)}
-                className="ml-4 text-green-300 hover:text-green-100 underline"
+                className="ml-4 text-blue-300 hover:text-green-100 underline"
               >
                 [Retry]
               </button>
@@ -310,7 +310,7 @@ export default function Home() {
           ) : (
             <table className="w-full text-sm">
               <thead className="sticky top-0 bg-black">
-                <tr className="border-b border-green-600 text-green-300">
+                <tr className="border-b border-blue-600 text-blue-300">
                   <th className="text-left p-2 w-6"></th>
                   <th className="text-left p-2">Name</th>
                   <th className="text-right p-2 w-20">Size</th>
@@ -319,7 +319,7 @@ export default function Home() {
               </thead>
               <tbody>
                 {currentPath && (
-                  <tr className="border-b border-green-900 hover:bg-green-950">
+                  <tr className="border-b border-blue-900 hover:bg-blue-950">
                     <td className="p-2"></td>
                     <td className="p-2" colSpan={3}>
                       <button
@@ -335,7 +335,7 @@ export default function Home() {
                 {content?.folders.map((folder) => (
                   <tr
                     key={folder.name}
-                    className="border-b border-green-900 hover:bg-green-950"
+                    className="border-b border-blue-900 hover:bg-blue-950"
                   >
                     <td className="p-2"></td>
                     <td className="p-2" colSpan={3}>
@@ -352,7 +352,7 @@ export default function Home() {
                 {content?.files.map((file) => (
                   <tr
                     key={file.key}
-                    className={`border-b border-green-900 hover:bg-green-950 ${selectedFile?.key === file.key ? "bg-green-900" : ""
+                    className={`border-b border-blue-900 hover:bg-blue-950 ${selectedFile?.key === file.key ? "bg-blue-900" : ""
                       }`}
                   >
                     <td className="p-2">
@@ -360,20 +360,20 @@ export default function Home() {
                         type="checkbox"
                         checked={isFileSelected(file)}
                         onChange={() => toggleCompareFile(file)}
-                        className="accent-green-500"
+                        className="accent-blue-500"
                         onClick={(e) => e.stopPropagation()}
                       />
                     </td>
                     <td
-                      className="p-2 text-green-400 truncate max-w-[200px] cursor-pointer"
+                      className="p-2 text-blue-400 truncate max-w-[200px] cursor-pointer"
                       onClick={() => fetchPreview(file)}
                     >
                       📄 {getFileName(file.key)}
                     </td>
-                    <td className="p-2 text-right text-green-600 text-xs">
+                    <td className="p-2 text-right text-blue-600 text-xs">
                       {formatBytes(file.size)}
                     </td>
-                    <td className="p-2 text-right text-green-600 text-xs">
+                    <td className="p-2 text-right text-blue-600 text-xs">
                       {formatDate(file.lastModified)}
                     </td>
                   </tr>
@@ -382,7 +382,7 @@ export default function Home() {
                 {content?.folders.length === 0 &&
                   content?.files.length === 0 && (
                     <tr>
-                      <td className="p-3 text-green-600" colSpan={4}>
+                      <td className="p-3 text-blue-600" colSpan={4}>
                         (empty)
                       </td>
                     </tr>
@@ -392,7 +392,7 @@ export default function Home() {
           )}
         </div>
 
-        <div className="text-green-600 text-xs p-2 border-t border-green-600 shrink-0">
+        <div className="text-blue-600 text-xs p-2 border-t border-blue-600 shrink-0">
           {content && (
             <>
               {content.folders.length} folder(s), {content.files.length} file(s)
@@ -404,12 +404,12 @@ export default function Home() {
       {/* Preview Panel */}
       {viewMode === "preview" && selectedFile && (
         <div className="flex-1 flex flex-col">
-          <div className="border-b border-green-600 p-3 flex items-center justify-between shrink-0 bg-black">
+          <div className="border-b border-blue-600 p-3 flex items-center justify-between shrink-0 bg-black">
             <div>
-              <div className="text-green-300 truncate">
+              <div className="text-blue-300 truncate">
                 {getFileName(selectedFile.key)}
               </div>
-              <div className="text-green-600 text-xs">
+              <div className="text-blue-600 text-xs">
                 {previewLoading
                   ? `Loading... ${formatBytes(bytesLoaded)} / ${formatBytes(selectedFile.size)}`
                   : `${formatBytes(selectedFile.size)} • ${formatDate(selectedFile.lastModified)}`}
@@ -435,7 +435,7 @@ export default function Home() {
             <Editor
               height="100%"
               language="sql"
-              theme="terminal-green"
+              theme="terminal-blue"
               value={previewContent || (previewLoading ? "-- Loading..." : "-- No content")}
               options={{
                 readOnly: true,
@@ -453,17 +453,17 @@ export default function Home() {
       {/* Diff Panel */}
       {viewMode === "diff" && (
         <div className="flex-1 flex flex-col">
-          <div className="border-b border-green-600 p-3 flex items-center justify-between shrink-0 bg-black">
+          <div className="border-b border-blue-600 p-3 flex items-center justify-between shrink-0 bg-black">
             <div>
-              <div className="text-green-300">
+              <div className="text-blue-300">
                 Comparing Files
               </div>
-              <div className="text-green-600 text-xs">
+              <div className="text-blue-600 text-xs">
                 {diffLoading ? "Loading files..." : (
                   <>
                     <span className="text-red-400">{getFileName(compareFiles[0]?.key || "")}</span>
                     {" ← → "}
-                    <span className="text-green-400">{getFileName(compareFiles[1]?.key || "")}</span>
+                    <span className="text-blue-400">{getFileName(compareFiles[1]?.key || "")}</span>
                   </>
                 )}
               </div>
@@ -478,7 +478,7 @@ export default function Home() {
 
           <div className="flex-1">
             {diffLoading ? (
-              <div className="h-full flex items-center justify-center bg-black text-green-500">
+              <div className="h-full flex items-center justify-center bg-black text-blue-500">
                 Loading files for comparison...
               </div>
             ) : (
@@ -486,7 +486,7 @@ export default function Home() {
                 key={`${compareFiles[0]?.key}-${compareFiles[1]?.key}`}
                 height="100%"
                 language="sql"
-                theme="terminal-green"
+                theme="terminal-blue"
                 original={diffOriginal}
                 modified={diffModified}
                 options={{
