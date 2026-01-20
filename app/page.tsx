@@ -481,6 +481,7 @@ export default function Home() {
               </div>
             ) : (
               <DiffEditor
+                key={`${compareFiles[0]?.key}-${compareFiles[1]?.key}`}
                 height="100%"
                 language="sql"
                 theme="terminal-green"
@@ -491,9 +492,10 @@ export default function Home() {
                   minimap: { enabled: false },
                   scrollBeyondLastLine: false,
                   fontSize: 12,
-                  wordWrap: "on",
+                  wordWrap: "off",
                   automaticLayout: true,
                   renderSideBySide: true,
+                  diffWordWrap: "off",
                 }}
               />
             )}
